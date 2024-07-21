@@ -1,0 +1,16 @@
+.centeredImage {
+    background-repeat: no-repeat;
+    background: linear-gradient(to right, #0070bb, #ffffff);
+  }
+  .titleStyle {
+    font-size: x-small !important;
+    letter-spacing: 1px !important;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .bodyCard {
+    border-radius: 6px;
+  }

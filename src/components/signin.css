@@ -1,0 +1,21 @@
+.centered-image {
+    background-repeat: no-repeat;
+    background: linear-gradient(to right, #0070bb, #ffffff);
+  }
+  .body_card {
+    border-radius: 6px;
+  }
+  .title {
+    font-size: x-small !important;
+    letter-spacing: 2px !important;
+  }
+  .loginSign {
+    width: 20vw !important;
+  }  
+
+  @media (max-width: 576px) {
+    .xs-img {
+      max-width: 100px;
+      max-height: 100px;
+    }
+  }

@@ -1,0 +1,12 @@
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@media (max-width: 576px) {
+  .xs-img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
