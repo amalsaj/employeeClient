@@ -167,7 +167,7 @@ const Dashboard = () => {
                 style={{ width: "40px", height: "40px" }}
                 alt="Img"
               />
-              <h1 className="fw-bold logo1 display-5 mt-1">
+              <h1 className="fw-bold name display-5 mt-1">
                 {first_name && first_name}
               </h1>
             </Nav.Link>
@@ -213,7 +213,11 @@ const Dashboard = () => {
                       <div className="logoMobile">
                         <img
                           src={Image}
-                          style={{ width: "50px", height: "40px" ,paddingTop:"10px"}}
+                          style={{
+                            width: "50px",
+                            height: "40px",
+                            paddingTop: "10px",
+                          }}
                           alt="Img"
                         />
                       </div>
