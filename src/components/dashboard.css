@@ -4,29 +4,50 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 13%;
+  width: 14%;
   height: 100%;
+}
+.navBar {
+  display: flex;
+  flex-direction: column !important;
+}
+.logoMobile {
+  display: none;
 }
 .navStyle {
   padding-top: 30px;
+  flex-direction: column !important;
 }
-.logo1 {
-  margin-top: 29px;
-}
-.photo {
-  padding-top: 50px;
-  margin-left: -21px;
+.search-wrapper {
+  position: relative;
 }
 .logo {
   font-size: x-small !important;
   letter-spacing: 2px !important;
 }
-.logout {
+
+.logo1 {
+  margin-top: 29px;
+}
+
+.photo {
+  padding-top: 50px;
+  margin-left: -21px;
+}
+
+.logoutNav {
   font-size: medium;
   margin-left: 20px;
 }
 .dashbaord {
   background-color: #f2f3f4;
+  position: fixed;
+  right: 0;
+  width: 87%;
+  height: 100%;
+}
+.logoutTitle {
+  display: none;
 }
 .dash1 {
   margin-top: 50px;
@@ -34,37 +55,39 @@
   width: 50ww;
   text-align: center;
 }
+
 .welcomeCard {
   margin-top: 100px;
 }
+
 .create_btn2 {
   background-color: #003153 !important;
   font-size: large;
   color: #ffffff !important;
 }
-.search-wrapper {
-  position: relative;
-  width: 100%;
-}
+
 .search {
-  width: 30%;
+  width: 300px;
   border: none;
   padding-left: 1rem;
   border-radius: 12px;
 }
+
 .search-icon {
   position: absolute;
   font-size: 12px;
-  right: 61vw;
-  top: 70%;
+  right: 1rem; /* Adjusted for better alignment */
+  top: 50%;
   transform: translateY(-50%);
   color: #aaa;
 }
+
 .create_btn {
   background-color: #003153 !important;
   font-size: x-small;
   color: #ffffff !important;
 }
+
 .table_title {
   font-size: 15px;
   letter-spacing: 2px !important;
@@ -93,14 +116,17 @@
 tbody tr {
   border: 1px solid #bbbbbb;
 }
+
 .icon_style {
   color: #ff5722 !important;
   font-size: medium;
   cursor: pointer;
 }
+
 .page {
   padding-left: 60vw !important;
 }
+
 .modal {
   display: flex;
   position: fixed;
@@ -114,12 +140,132 @@ tbody tr {
   left: 228px !important;
   width: 129vh !important;
 }
+
 .head {
   background-color: #0070bb !important;
   color: white !important;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+
 .table_body {
   background-color: #f0f8ff !important;
+}
+
+@media (max-width: 700px) {
+  .Nav {
+    top: auto;
+    background: none;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    flex-direction: row !important;
+    justify-content: space-around;
+    padding: 0;
+  }
+
+  .logoMobile {
+    padding-top: 4cm;
+    display: contents;
+  }
+
+  .employeeIcon,
+  .timelineIcon,
+  .profileIcon,
+  .settingsIcon,
+  .logoutIcon {
+    padding-bottom: 5px !important;
+  }
+  .navBar {
+    display: flex;
+    flex-direction: row !important;
+  }
+
+  .search-wrapper {
+    position: relative;
+    margin-left: 100px !important;
+  }
+  .search {
+    width: 300px;
+    border: none;
+    padding-left: 1rem;
+  }
+
+  .navStyle {
+    display: flex;
+    flex-direction: row !important;
+    width: 100%;
+    justify-content: space-around;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .Nav .nav-link {
+    border-radius: 10%;
+    color: #003153 !important;
+    width: 20%;
+    height: auto;
+    padding: 10px;
+    display: flex;
+  }
+  .Nav .nav-link:hover {
+    background-color: #000000;
+    color: #f0f8ff !important;
+    border-radius: 10%;
+  }
+
+  .navStyle .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .navStyle .nav-link i {
+    font-size: 1.3rem;
+  }
+  .logoutTitle {
+    display: contents;
+  }
+  .photo,
+  .logo1 {
+    display: none !important;
+  }
+  .navStyle .nav-link span {
+    font-size: 0.75rem;
+  }
+  .logoutIcon {
+    margin-top: 4px;
+  }
+  .dashbaord {
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 70px);
+    bottom: 0;
+    top: 0;
+    left: 0;
+  }
+}
+@media (max-width: 400px) {
+  .search-wrapper {
+    position: relative;
+    margin-left: 5px !important;
+  }
+  .search {
+    width: 100px;
+    border: none;
+    padding-left: 1rem;
+  }
+}
+@media (max-width: 500px) {
+  .search-wrapper {
+    position: relative;
+    margin-left: 10px !important;
+  }
+  .search {
+    width: 300px;
+    border: none;
+    padding-left: 1rem;
+  }
 }

@@ -134,8 +134,8 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="col-2 Nav text-white ">
-        <Navbar expand="md" className="flex-column">
+      <div className="Nav text-white">
+        <Navbar className="navBar">
           <Navbar.Brand className="logo1">
             <img
               src={Image}
@@ -143,55 +143,44 @@ const Dashboard = () => {
               alt="Img"
             />
           </Navbar.Brand>
-          <Navbar.Toggle
-            className="ms-5"
-            aria-controls="basic-navbar-nav"
-            style={{
-              fontSize: "xx-small",
-            }}
-          />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="flex-column navStyle">
-              <Nav.Link className="text-white mt-2" onClick={handleClick}>
-                <i class="fa-solid fa-clipboard-list me-2"></i> Employees
-              </Nav.Link>
-              <Nav.Link className="text-white mt-2">
-                <i class="fa-solid fa-timeline me-2"></i>Time Line
-              </Nav.Link>
-              <Nav.Link className="text-white mt-2">
-                <i class="fa-regular fa-user me-2"></i>Profile
-              </Nav.Link>
-              <Nav.Link className="text-white mt-2">
-                <i class="fa-solid fa-gear me-2"></i> Settings
-              </Nav.Link>
-              <Nav.Link className="mt-5 text-center photo">
-                <img
-                  src={data2}
-                  style={{ width: "40px", height: "40px" }}
-                  alt="Img"
-                />
-                <h1 className="fw-bold logo display-5 mt-1">
-                  {" "}
-                  {first_name && first_name}
-                </h1>
-              </Nav.Link>
-              <Nav.Link className="logout" onClick={() => Toast()}>
-                <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>{" "}
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+          <Nav className="navStyle">
+            <Nav.Link
+              className="text-white mt-2 employeeNav"
+              onClick={handleClick}
+            >
+              <i className="fa-solid fa-clipboard-list me-2 employeeIcon"></i>{" "}
+              Employees
+            </Nav.Link>
+            <Nav.Link className="text-white mt-2 timelineNav">
+              <i className="fa-solid fa-timeline me-2 timelineIcon"></i>Time
+              Line
+            </Nav.Link>
+            <Nav.Link className="text-white mt-2 profileNav">
+              <i className="fa-regular fa-user me-2 profileIcon"></i>Profile
+            </Nav.Link>
+            <Nav.Link className="text-white mt-2 settingsNav">
+              <i className="fa-solid fa-gear me-2 settingsIcon"></i> Settings
+            </Nav.Link>
+            <Nav.Link className="mt-5 text-center photo">
+              <img
+                src={data2}
+                style={{ width: "40px", height: "40px" }}
+                alt="Img"
+              />
+              <h1 className="fw-bold logo1 display-5 mt-1">
+                {first_name && first_name}
+              </h1>
+            </Nav.Link>
+            <Nav.Link className="logoutNav" onClick={() => Toast()}>
+              <i className="fa-solid fa-arrow-right-from-bracket me-2 logoutIcon"></i>{" "}
+              <span className="logoutTitle">Logout</span>
+            </Nav.Link>
+          </Nav>
         </Navbar>
       </div>
+
       <ToastContainer />
-      <div
-        className="col-10 dashbaord"
-        style={{
-          position: "fixed",
-          right: 0,
-          width: "87%",
-          height: "100%",
-        }}
-      >
+      <div className="col-10 dashbaord">
         <div>
           <div className="container">
             <div className="row">
@@ -220,15 +209,24 @@ const Dashboard = () => {
               ) : (
                 <div className="employee">
                   <div className="col-12 fs-1">
-                    <div className="search-wrapper">
-                      <input
-                        className="border-1 search fs-6"
-                        type="text"
-                        placeholder="search"
-                      />
-                      <i className="fa-solid fa-magnifying-glass search-icon"></i>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="logoMobile">
+                        <img
+                          src={Image}
+                          style={{ width: "50px", height: "40px" ,paddingTop:"10px"}}
+                          alt="Img"
+                        />
+                      </div>
+                      <div className="search-wrapper">
+                        <input
+                          className="border-1 search fs-6"
+                          type="text"
+                          placeholder="search"
+                        />
+                      </div>
                     </div>
                   </div>
+
                   <div className="col-12 d-flex justify-content-end mt-4">
                     <button
                       type="button"
