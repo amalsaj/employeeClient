@@ -1,50 +1,49 @@
 import React, { useState, useEffect } from "react";
-import "./dashboard.css";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Img from "../Images/emp2.svg";
-import data2 from "../Images/data2.png";
-import Image from "../Images/logo.png";
 import { Pagination, Navbar, Nav, Card, Button } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
-import axios from "axios";
-
+import { APIURL } from "../../utils/api";
+import Img from "../../assets/images/emp2.svg";
+import data2 from "../../assets/images/data2.png";
+import Image from "../../assets/images/logo.png";
+import "./dashboard.css";
 const Dashboard = () => {
   const [showWelcome, setShowWelcome] = useState(true);
+  const [search, setSearch] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  //localstorage
   const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("email");
   const value = localStorage.getItem("value");
+
+  //user name for profile display
   let first_name;
-  if (user !== null) {
-    first_name = user.split(" ")[0];
-  } else {
-    console.log("username_head is null.");
-  }
+  first_name = user.split("@")[0];
 
   const [formDataList, setFormDataList] = useState({
     data: [],
     active: 1,
     totalPages: 0,
   });
+
   const [editFormData, setEditFormData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     fetchData(1);
-  }, []);
+  }, [search]);
 
   const fetchData = async (page) => {
     try {
-      const response = await axios.get(
-        "https://employeeserver-979i.onrender.com/getEmployeeData",
-        {
-          params: { page: page, pageSize: 5 },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${APIURL}/getEmployeeData`, {
+        params: { page: page, pageSize: 5, search: search },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       localStorage.setItem("value", response.data.totalPages);
       setFormDataList({
         data: response.data.data,
@@ -68,6 +67,34 @@ const Dashboard = () => {
   const handleEditClick = (formData) => {
     setEditFormData({ ...formData });
     setIsEditing(true);
+  };
+
+  const handleDeleteClick = async (_id) => {
+    try {
+      await axios.delete(`${APIURL}/deleteEmployee`, {
+        data: { _id },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setError("");
+      showToastMessage("Deleted successfully");
+      setTimeout(() => {
+        navigate(`/getEmployeeData`);
+        refreshPage();
+      }, 1000);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setError(error.response.data);
+      } else {
+        setError("An error occurred. Please try again.");
+      }
+    }
+  };
+
+  const handleClose = () => {
+    setIsEditing(false);
   };
 
   const handleClick = () => {
@@ -95,9 +122,15 @@ const Dashboard = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("https://employeeserver-979i.onrender.com/editEmployee", {
-        editFormData,
-      });
+      await axios.put(
+        `${APIURL}/editEmployee`,
+        { editFormData },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setIsEditing(false);
       setError("");
       showToastMessage("Update Successfully");
@@ -123,7 +156,7 @@ const Dashboard = () => {
 
   const showToastMessage = (message) => {
     toast.success(message, {
-      position: "bottom-right",
+      position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
       pauseOnHover: true,
@@ -178,13 +211,11 @@ const Dashboard = () => {
           </Nav>
         </Navbar>
       </div>
-
-      <ToastContainer />
       <div className="col-10 dashbaord">
         <div>
           <div className="container">
             <div className="row">
-              {showWelcome && value === 0 ? (
+              {showWelcome && value === "" ? (
                 <div className="notEmployee">
                   <Card className="dash1 table_body">
                     <Card.Body className="welcomeCard">
@@ -226,6 +257,9 @@ const Dashboard = () => {
                           className="border-1 search fs-6"
                           type="text"
                           placeholder="search"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          required
                         />
                       </div>
                     </div>
@@ -267,12 +301,13 @@ const Dashboard = () => {
                             <th>Designation</th>
                             <th>Gender</th>
                             <th>Course</th>
-                            <th>Create Date</th>
+                            <th>Join Date</th>
                             <th></th>
+                            <th>..</th>
                           </tr>
                         </thead>
                         <tbody className="logo">
-                          {formDataList.data &&
+                          {formDataList.data ? (
                             formDataList.data.map((formData, index) => (
                               <tr key={index}>
                                 <td>{index + 1}</td>
@@ -293,12 +328,27 @@ const Dashboard = () => {
                                 <td>{formData.f_Createdate}</td>
                                 <td>
                                   <i
-                                    className="fa-regular fa-pen-to-square icon_style"
+                                    className="fa-regular fa-pen-to-square icon_style1"
                                     onClick={() => handleEditClick(formData)}
                                   ></i>{" "}
                                 </td>
+                                <td>
+                                  <i
+                                    className="fa-solid fa-trash icon_style2"
+                                    onClick={() =>
+                                      handleDeleteClick(formData._id)
+                                    }
+                                  ></i>{" "}
+                                </td>
                               </tr>
-                            ))}
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan="9" className="no-data">
+                                No Data Found
+                              </td>
+                            </tr>
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -352,6 +402,10 @@ const Dashboard = () => {
                                 width={70}
                                 className="rounded"
                               />
+                              <i
+                                class="fas fa-times close"
+                                onClick={handleClose}
+                              ></i>
                               <h2 className="fs-4 mt-1 mb-1">
                                 Update Information
                               </h2>
@@ -440,7 +494,7 @@ const Dashboard = () => {
                                   </div>
                                   <div className="form-group">
                                     <label htmlFor="f_Createdate">
-                                      Create Date
+                                      Join Date
                                     </label>
                                     <input
                                       type="date"
@@ -472,6 +526,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./signup.css";
+import { APIURL } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
-import Logo from "../Images/logo.avif";
 import { Image, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
-import card from "../Images/card4.svg";
+import card from "../../assets/images/card4.svg";
+import Logo from "../../assets/images/logo.avif";
+import "./signup.css";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [err, setError] = useState("");
 
   const showToastMessage = () => {
@@ -28,13 +30,11 @@ const SignUpForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://employeeserver-979i.onrender.com/signup",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post(`${APIURL}/signup`, {
+        username,
+        password,
+        email,
+      });
       console.log(response.data);
       setError("");
       showToastMessage();
@@ -129,7 +129,7 @@ const SignUpForm = () => {
               <form onSubmit={handleSubmit} autocomplete="off">
                 <div className="form-group">
                   <label className="mb-2" htmlFor="username">
-                    Username
+                    Name
                   </label>
                   <input
                     type="text"
@@ -140,7 +140,19 @@ const SignUpForm = () => {
                     required
                   />
                 </div>
-
+                <div className="form-group">
+                  <label className="mb-2" htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="username"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
                 <div className="form-group mt-3">
                   <label className="mb-2" htmlFor="password">
                     Password

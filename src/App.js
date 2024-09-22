@@ -1,10 +1,10 @@
 import React from "react";
-import SignUpForm from "./components/SignUp";
+import SignUpForm from "./pages/SignUp/SignUp";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signin from "./components/SignIn";
+import Signin from "./pages/SignIn/SignIn";
 import "./App.css";
-import Dashboard from "./components/Dashboard";
-import Create from "./components/Create";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Create from "./pages/CreateEmployee/Create";
 
 function App() {
   return (

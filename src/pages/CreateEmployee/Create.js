@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import "./create.css";
-import Img from "../Images/emp.svg";
-import Image from "react-bootstrap/Image";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { APIURL } from "../../utils/api";
+import Img from "../../assets/images/emp.svg";
+import Image from "react-bootstrap/Image";
+import "./create.css";
 const FormComponent = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const today = new Date().toISOString().split("T")[0];
   const [formData, setFormData] = useState({
     f_Name: "",
@@ -48,8 +50,13 @@ const FormComponent = () => {
 
     try {
       await axios.post(
-        "https://employeeserver-979i.onrender.com/createEmployee",
-        { formData }
+        `${APIURL}/createEmployee`,
+        { formData },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setError("");
       navigate(`/getEmployeeData`);
@@ -211,7 +218,7 @@ const FormComponent = () => {
 
             <div className="form-group">
               <label className="font_card" htmlFor="f_Createdate">
-                Create Date
+                Join Date
               </label>
               <input
                 type="date"

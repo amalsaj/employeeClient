@@ -29,7 +29,7 @@
 .logo1 {
   margin-top: 29px;
 }
-.name{
+.name {
   font-size: x-small !important;
 }
 .photo {
@@ -54,7 +54,7 @@
 .dash1 {
   margin-top: 50px;
   height: 500px;
-  width: 50ww;
+  width: 50vw;
   text-align: center;
 }
 
@@ -78,10 +78,17 @@
 .search-icon {
   position: absolute;
   font-size: 12px;
-  right: 1rem; /* Adjusted for better alignment */
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
   color: #aaa;
+}
+.close {
+  position: absolute;
+  font-size: larger !important;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
 
 .create_btn {
@@ -119,8 +126,13 @@ tbody tr {
   border: 1px solid #bbbbbb;
 }
 
-.icon_style {
-  color: #ff5722 !important;
+.icon_style1 {
+  color: #2285ff !important;
+  font-size: medium;
+  cursor: pointer;
+}
+.icon_style2 {
+  color: #ff2252 !important;
   font-size: medium;
   cursor: pointer;
 }
@@ -129,19 +141,38 @@ tbody tr {
   padding-left: 60vw !important;
 }
 
+/* Modal and Modal-Content styles */
 .modal {
   display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
 
 .modal-content {
-  border: none;
-  margin-bottom: 25rem;
-  border-radius: 25px;
   background-color: #fff;
-  top: 40px !important;
-  left: 200px !important;
-  width: 139vh !important;
+  border-radius: 25px;
+  border: none;
+  padding: 20px;
+  max-width: 90vw;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto; /* Ensures content scrolls if it overflows */
+}
+
+/* Hide the scrollbar but keep scrolling enabled */
+.modal-content::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+.modal-content {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
 }
 
 .head {
@@ -149,10 +180,45 @@ tbody tr {
   color: white !important;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 1rem;
+  text-align: center;
+}
+
+.no-data {
+  text-align: center !important;
+  padding: 20px !important;
 }
 
 .table_body {
   background-color: #f0f8ff !important;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .modal-content {
+    width: 110vh !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .modal-content {
+    width: 90vh !important;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 85vw !important;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-content {
+    width: 95vw !important;
+    padding: 0.8rem;
+  }
 }
 
 @media (max-width: 700px) {
@@ -172,6 +238,9 @@ tbody tr {
     display: contents;
   }
 
+  .page {
+    padding-left: 48vw !important;
+}
   .employeeIcon,
   .timelineIcon,
   .profileIcon,
@@ -179,6 +248,7 @@ tbody tr {
   .logoutIcon {
     padding-bottom: 5px !important;
   }
+
   .navBar {
     display: flex;
     flex-direction: row !important;
@@ -188,6 +258,7 @@ tbody tr {
     position: relative;
     margin-left: 100px !important;
   }
+
   .search {
     width: 300px;
     border: none;
@@ -211,6 +282,7 @@ tbody tr {
     padding: 10px;
     display: flex;
   }
+
   .Nav .nav-link:hover {
     background-color: #000000;
     color: #f0f8ff !important;
@@ -228,19 +300,24 @@ tbody tr {
   .navStyle .nav-link i {
     font-size: 1.3rem;
   }
+
   .logoutTitle {
     display: contents;
   }
+
   .photo,
   .logo1 {
     display: none !important;
   }
+
   .navStyle .nav-link span {
     font-size: 0.75rem;
   }
+
   .logoutIcon {
     margin-top: 4px;
   }
+
   .dashbaord {
     position: fixed;
     width: 100%;
@@ -249,40 +326,47 @@ tbody tr {
     top: 0;
     left: 0;
   }
+
   .modal-content {
     top: 0px !important;
     left: 0px !important;
     width: 130vh !important;
   }
 }
+
 @media (max-width: 400px) {
   .search-wrapper {
     position: relative;
     margin-left: 5px !important;
   }
+
   .search {
     width: 100px;
     border: none;
     padding-left: 1rem;
   }
 }
+
 @media (max-width: 500px) {
   .search-wrapper {
     position: relative;
     margin-left: 10px !important;
   }
+
   .search {
     width: 300px;
     border: none;
     padding-left: 1rem;
   }
+
   .modal-content {
     top: 0px !important;
     left: 0px !important;
     width: 120vh !important;
   }
 }
-@media (max-width: 900px) {
+
+@media (max-width: 800px) {
   .modal-content {
     top: 0px !important;
     left: 0px !important;

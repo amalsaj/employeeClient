@@ -1,31 +1,29 @@
 import React, { useState } from "react";
-import "./signin.css";
-import { useNavigate } from "react-router-dom";
-import Logo from "../Images/logo.avif";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Image, Button, Container, Row, Col, Card } from "react-bootstrap";
-import card from "../Images/card3.svg";
 import { toast, ToastContainer } from "react-toastify";
+import { APIURL } from "../../utils/api";
+import Logo from "../../assets/images/logo.avif";
+import card from "../../assets/images/card3.svg";
+import "./signin.css";
 
 const LoginForm = () => {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://employeeserver-979i.onrender.com/signin",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post(`${APIURL}/signin`, {
+        password,
+        email,
+      });
       const { token } = response.data;
       localStorage.setItem("token", token);
-      localStorage.setItem("user", username);
+      localStorage.setItem("email", email);
       showToastMessage();
       setTimeout(() => {
         navigate(`/getEmployeeData`);
@@ -120,17 +118,17 @@ const LoginForm = () => {
               </Card.Header>
               <Card.Body>
                 {error && <p style={{ color: "red" }}>{error}</p>}
-                <form onSubmit={handleSubmit} autocomplete="off">
+                <form onSubmit={handleSubmit}>
                   <div className="mb-3">
-                    <label htmlFor="username" className="form-label">
-                      Username
+                    <label htmlFor="email" className="form-label">
+                      Email
                     </label>
                     <input
-                      type="text"
-                      id="username"
+                      type="email"
+                      id="email"
                       className="form-control"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                   </div>
