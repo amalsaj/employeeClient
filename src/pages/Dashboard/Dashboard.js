@@ -36,6 +36,7 @@ const Dashboard = () => {
     fetchData(1);
   }, [search]);
 
+  //fetch employee data
   const fetchData = async (page) => {
     try {
       const response = await axios.get(`${APIURL}/getEmployeeData`, {
@@ -55,20 +56,19 @@ const Dashboard = () => {
     }
   };
 
+  //handle the pagination
   const handlePageChange = (pageNumber) => {
     setFormDataList((prevState) => ({ ...prevState, active: pageNumber }));
     fetchData(pageNumber);
   };
 
-  function refreshPage() {
-    window.location.reload();
-  }
-
+  // handle the edit
   const handleEditClick = (formData) => {
     setEditFormData({ ...formData });
     setIsEditing(true);
   };
 
+  // handle the delete
   const handleDeleteClick = async (_id) => {
     try {
       await axios.delete(`${APIURL}/deleteEmployee`, {
@@ -81,8 +81,7 @@ const Dashboard = () => {
       setError("");
       showToastMessage("Deleted successfully");
       setTimeout(() => {
-        navigate(`/getEmployeeData`);
-        refreshPage();
+        fetchData(1);
       }, 1000);
     } catch (error) {
       if (error.response && error.response.data) {
@@ -93,6 +92,7 @@ const Dashboard = () => {
     }
   };
 
+  // handle the close button in edit
   const handleClose = () => {
     setIsEditing(false);
   };
@@ -102,11 +102,13 @@ const Dashboard = () => {
     setShowWelcome(false);
   };
 
+  //handle the input values change in edit
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditFormData({ ...editFormData, [name]: value });
   };
 
+  //handle the file change in edit
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -119,6 +121,7 @@ const Dashboard = () => {
     }
   };
 
+  //handle the form submit in edit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -131,12 +134,11 @@ const Dashboard = () => {
           },
         }
       );
-      setIsEditing(false);
       setError("");
       showToastMessage("Update Successfully");
       setTimeout(() => {
-        navigate(`/getEmployeeData`);
-        refreshPage();
+        setIsEditing(false);
+        fetchData(1);
       }, 1000);
     } catch (error) {
       if (error.response && error.response.data) {
@@ -414,8 +416,8 @@ const Dashboard = () => {
                               {error && <p style={{ color: "red" }}>{error}</p>}
                               <div>
                                 <form onSubmit={handleFormSubmit}>
-                                  <div className="form-group">
-                                    <label htmlFor="f_Image">Image</label>
+                                  <div className="form-group mb-2">
+                                    <label htmlFor="f_Image">Profile</label>
                                     <input
                                       type="file"
                                       className="form-control"
@@ -424,7 +426,7 @@ const Dashboard = () => {
                                       onChange={handleFileInputChange}
                                     />
                                   </div>
-                                  <div className="form-group">
+                                  <div className="form-group mb-2">
                                     <label htmlFor="f_Name">Name</label>
                                     <input
                                       type="text"
@@ -435,7 +437,7 @@ const Dashboard = () => {
                                       onChange={handleInputChange}
                                     />
                                   </div>
-                                  <div className="form-group">
+                                  <div className="form-group mb-2">
                                     <label htmlFor="f_Email">Email</label>
                                     <input
                                       type="email"
@@ -446,7 +448,7 @@ const Dashboard = () => {
                                       onChange={handleInputChange}
                                     />
                                   </div>
-                                  <div className="form-group">
+                                  <div className="form-group mb-2">
                                     <label htmlFor="f_Mobile">Mobile</label>
                                     <input
                                       type="text"
@@ -457,42 +459,120 @@ const Dashboard = () => {
                                       onChange={handleInputChange}
                                     />
                                   </div>
-                                  <div className="form-group">
+                                  <div className="form-group mb-2">
                                     <label htmlFor="f_Designation">
                                       Designation
                                     </label>
-                                    <input
-                                      type="text"
+                                    <select
                                       className="form-control"
                                       id="f_Designation"
                                       name="f_Designation"
                                       value={editFormData.f_Designation}
                                       onChange={handleInputChange}
-                                    />
+                                    >
+                                      <option value="">
+                                        Select Designation
+                                      </option>
+                                      <option value="HR">HR</option>
+                                      <option value="Manager">Manager</option>
+                                      <option value="Sales">Sales</option>
+                                      <option value="Developer">
+                                        Developer
+                                      </option>
+                                      <option value="Designer">Designer</option>
+                                      <option value="Marketing">
+                                        Marketing
+                                      </option>
+                                      <option value="Support">Support</option>
+                                    </select>
                                   </div>
-                                  <div className="form-group">
+                                  <div className="form-group mb-2">
                                     <label htmlFor="f_gender">Gender</label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id="f_gender"
-                                      name="f_gender"
-                                      value={editFormData.f_gender}
-                                      onChange={handleInputChange}
-                                    />
+                                    <div>
+                                      <div className="form-check form-check-inline">
+                                        <input
+                                          className="form-check-input"
+                                          type="radio"
+                                          name="f_gender"
+                                          id="male"
+                                          value="Male"
+                                          onChange={handleInputChange}
+                                          checked={
+                                            editFormData.f_gender === "Male"
+                                          }
+                                        />
+                                        <label
+                                          className="form-check-label"
+                                          htmlFor="male"
+                                        >
+                                          Male
+                                        </label>
+                                      </div>
+                                      <div className="form-check form-check-inline">
+                                        <input
+                                          className="form-check-input"
+                                          type="radio"
+                                          name="f_gender"
+                                          id="female"
+                                          value="Female"
+                                          onChange={handleInputChange}
+                                          checked={
+                                            editFormData.f_gender === "Female"
+                                          }
+                                        />
+                                        <label
+                                          className="form-check-label"
+                                          htmlFor="female"
+                                        >
+                                          Female
+                                        </label>
+                                      </div>
+                                      <div className="form-check form-check-inline">
+                                        <input
+                                          className="form-check-input"
+                                          type="radio"
+                                          name="f_gender"
+                                          id="other"
+                                          value="Other"
+                                          onChange={handleInputChange}
+                                          checked={
+                                            editFormData.f_gender === "Other"
+                                          }
+                                        />
+                                        <label
+                                          className="form-check-label"
+                                          htmlFor="other"
+                                        >
+                                          Other
+                                        </label>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div className="form-group">
+
+                                  <div className="form-group mb-2">
                                     <label htmlFor="f_Course">Course</label>
-                                    <input
-                                      type="text"
+                                    <select
                                       className="form-control"
                                       id="f_Course"
                                       name="f_Course"
                                       value={editFormData.f_Course}
                                       onChange={handleInputChange}
-                                    />
+                                    >
+                                      <option value="">Select a course</option>
+                                      <option value="MCA">MCA</option>
+                                      <option value="BCA">BCA</option>
+                                      <option value="BSC">BSC</option>
+                                      <option value="BTECH">B-TECH</option>
+                                      <option value="MBA">MBA</option>
+                                      <option value="MSC">MSC</option>
+                                      <option value="MTECH">M-TECH</option>
+                                      <option value="BA">BA</option>
+                                      <option value="MA">MA</option>
+                                      <option value="PHD">PhD</option>
+                                      <option value="DIPLOMA">Diploma</option>
+                                    </select>
                                   </div>
-                                  <div className="form-group">
+                                  <div className="form-group mb-2">
                                     <label htmlFor="f_Createdate">
                                       Join Date
                                     </label>

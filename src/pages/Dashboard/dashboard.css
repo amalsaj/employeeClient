@@ -191,6 +191,10 @@ tbody tr {
 
 .table_body {
   background-color: #f0f8ff !important;
+  color: #165985;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-size: 16px;
 }
 
 /* Media Queries */
@@ -240,7 +244,7 @@ tbody tr {
 
   .page {
     padding-left: 48vw !important;
-}
+  }
   .employeeIcon,
   .timelineIcon,
   .profileIcon,
