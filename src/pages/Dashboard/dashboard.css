@@ -1,19 +1,4 @@
-.Nav {
-  font-size: 12px;
-  background: linear-gradient(180deg, #0070bb, #ffffff);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 14%;
-  height: 100%;
-}
-.navBar {
-  display: flex;
-  flex-direction: column !important;
-}
-.logoMobile {
-  display: none;
-}
+
 .navStyle {
   padding-top: 30px;
   flex-direction: column !important;
@@ -31,10 +16,6 @@
 }
 .name {
   font-size: x-small !important;
-}
-.photo {
-  padding-top: 50px;
-  margin-left: -21px;
 }
 
 .logoutNav {
@@ -226,16 +207,6 @@ tbody tr {
 }
 
 @media (max-width: 700px) {
-  .Nav {
-    top: auto;
-    background: none;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    flex-direction: row !important;
-    justify-content: space-around;
-    padding: 0;
-  }
 
   .logoMobile {
     padding-top: 4cm;
@@ -244,13 +215,6 @@ tbody tr {
 
   .page {
     padding-left: 48vw !important;
-  }
-  .employeeIcon,
-  .timelineIcon,
-  .profileIcon,
-  .settingsIcon,
-  .logoutIcon {
-    padding-bottom: 5px !important;
   }
 
   .navBar {
@@ -275,23 +239,18 @@ tbody tr {
     width: 100%;
     justify-content: space-around;
     padding-top: 0;
-    margin-top: 0;
+    margin-top: -11px;
   }
 
   .Nav .nav-link {
     border-radius: 10%;
-    color: #003153 !important;
+    color: #ffffff !important;
     width: 20%;
     height: auto;
     padding: 10px;
     display: flex;
   }
 
-  .Nav .nav-link:hover {
-    background-color: #000000;
-    color: #f0f8ff !important;
-    border-radius: 10%;
-  }
 
   .navStyle .nav-link {
     display: flex;

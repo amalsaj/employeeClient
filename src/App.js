@@ -1,19 +1,33 @@
 import React from "react";
 import SignUpForm from "./pages/SignUp/SignUp";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import Signin from "./pages/SignIn/SignIn";
-import "./App.css";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard"; // Import the new layout
+import Leave from "./components/Leave/Leave";
 import Create from "./pages/CreateEmployee/Create";
+import Employee from "./components/Employees/Employee";
+import "./App.css";
+import EmployerProfilePage from "./components/Profile/Profile";
 
 function App() {
   return (
     <div className="App">
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        autoHideDuration={2000}
+      ></SnackbarProvider>
       <Router>
         <Routes>
-          {/* <Route path="/" element={<SignUpForm />} /> */}
           <Route path="/" element={<Signin />} />
-          <Route path="/getEmployeeData" element={<Dashboard />} />
+          <Route path="/getEmployeeData" element={<Dashboard />}>
+            <Route path="leave" element={<Leave />} />
+            <Route path="employees" element={<Employee />} />
+            <Route path="profile" element={<EmployerProfilePage />} />
+          </Route>
           <Route path="/create" element={<Create />} />
           <Route path="/signup" element={<SignUpForm />} />
         </Routes>

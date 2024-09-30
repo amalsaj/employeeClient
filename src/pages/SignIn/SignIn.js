@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 import { Image, Button, Container, Row, Col, Card } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
 import { APIURL } from "../../utils/api";
 import Logo from "../../assets/images/logo.avif";
 import card from "../../assets/images/card3.svg";
@@ -24,38 +24,20 @@ const LoginForm = () => {
       const { token } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("email", email);
-      showToastMessage();
-      setTimeout(() => {
-        navigate(`/getEmployeeData`);
-      }, 1000);
+      enqueueSnackbar("Login Successful 🎉", { variant: "success" });
+      navigate(`/getEmployeeData/employees`);
     } catch (error) {
       if (error.response && error.response.data) {
-        const errorMessage = error.response.data || "An error occurred";
+        const errorMessage = error.response.data.error || "An error occurred";
+        console.log("errorMessage: ", errorMessage);
         setError(errorMessage);
-        toast.warning(errorMessage, {
-          position: "bottom-right",
-          autoClose: 2000,
-          pauseOnHover: true,
-          hideProgressBar: false,
-          draggable: true,
-          progress: undefined,
-        });
+        enqueueSnackbar(errorMessage, { variant: "error" });
       } else {
         setError("An error occurred. Please try again.");
       }
     }
   };
 
-  const showToastMessage = () => {
-    toast.success("Login Successfully", {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
   return (
     <Container fluid>
       <Row style={{ height: "100vh" }}>
@@ -151,7 +133,6 @@ const LoginForm = () => {
                       Login
                     </Button>
                   </div>
-                  <ToastContainer />
                   <div className="justify-content-center d-flex align-items-center mt-5">
                     <h1 className="text-secondary title">
                       Doesn't have an account yet?{" "}

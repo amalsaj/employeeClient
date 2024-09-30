@@ -59,7 +59,7 @@ const FormComponent = () => {
         }
       );
       setError("");
-      navigate(`/getEmployeeData`);
+      navigate(`/getEmployeeData/employees`);
     } catch (error) {
       // Handle error
       if (error.response && error.response.data) {
