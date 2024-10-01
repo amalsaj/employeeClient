@@ -18,6 +18,35 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_-]{2,15}$/;
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    const mobileRegex = /^\d{10}$/;
+
+    // Check username validity
+    if (!usernameRegex.test(username)) {
+      const errorMessage =
+        "Your username should start with a letter and be 3 to 16 characters long, allowing letters, numbers, underscores, and hyphens.";
+      enqueueSnackbar(errorMessage, { variant: "warning" });
+      return;
+    }
+
+    // Check mobile number validity
+    if (!mobileRegex.test(mobile)) {
+      const errorMessage = "Please enter a valid 10-digit mobile number.";
+      enqueueSnackbar(errorMessage, { variant: "warning" });
+      return; // Exit the function if validation fails
+    }
+
+    if (!passwordRegex.test(password)) {
+      const errorMessage =
+        "Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+      enqueueSnackbar(errorMessage, { variant: "warning" });
+      return; // Exit the function if validation fails
+    }
+
     try {
       const response = await axios.post(`${APIURL}/signup`, {
         username,
@@ -26,7 +55,9 @@ const SignUpForm = () => {
         mobileNumber: mobile,
       });
       setError("");
-      enqueueSnackbar("Account Created Successfully 🎉", { variant: "success" });
+      enqueueSnackbar("Account Created Successfully 🎉", {
+        variant: "success",
+      });
       navigate(`/`);
     } catch (error) {
       if (error.response && error.response.data) {
@@ -41,7 +72,10 @@ const SignUpForm = () => {
 
   return (
     <Container fluid className="signup-container">
-      <Row className="align-items-center justify-content-center" style={{ height: "100vh" }}>
+      <Row
+        className="align-items-center justify-content-center"
+        style={{ height: "100vh" }}
+      >
         <Col xs={12} md={4} lg={4} className="text-center">
           <Image src={card} alt="Card Image" className="card-image" />
         </Col>
@@ -50,15 +84,20 @@ const SignUpForm = () => {
             <Card.Header className="bg-white border-0 text-center">
               <Image src={Logo} alt="Logo" className="logo-image mb-3" />
               <h1 className="welcome-title mb-2">
-                <span className="text-gradient-left">Create</span> <span className="text-gradient-right">Account</span>
+                <span className="text-gradient-left">Create</span>{" "}
+                <span className="text-gradient-right">Account</span>
               </h1>
-              <h2 className="subtitle mb-4">Join us today to unlock endless possibilities!</h2>
+              <h2 className="subtitle mb-4">
+                Join us today to unlock endless possibilities!
+              </h2>
             </Card.Header>
             <Card.Body>
               {err && <p className="error-message">{err}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group mb-2">
-                  <label htmlFor="username" className="form-label">Name</label>
+                  <label htmlFor="username" className="form-label">
+                    Name
+                  </label>
                   <input
                     type="text"
                     id="username"
@@ -69,7 +108,9 @@ const SignUpForm = () => {
                   />
                 </div>
                 <div className="form-group mb-2">
-                  <label htmlFor="email" className="form-label">Email</label>
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -80,7 +121,9 @@ const SignUpForm = () => {
                   />
                 </div>
                 <div className="form-group mb-2">
-                  <label htmlFor="mobile" className="form-label">Contact Number</label>
+                  <label htmlFor="mobile" className="form-label">
+                    Contact Number
+                  </label>
                   <input
                     type="text"
                     id="mobile"
@@ -91,7 +134,9 @@ const SignUpForm = () => {
                   />
                 </div>
                 <div className="form-group mb-2">
-                  <label htmlFor="password" className="form-label">Password</label>
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
                   <input
                     type="password"
                     id="password"
@@ -101,10 +146,17 @@ const SignUpForm = () => {
                     required
                   />
                 </div>
-                <Button type="submit" className="btn signup-btn w-100">Sign Up</Button>
+                <Button type="submit" className="btn signup-btn w-100">
+                  Sign Up
+                </Button>
               </form>
               <div className="mt-4">
-                <p className="signup-text">Already have an account? <a href="/" className="signup-link">Login</a></p>
+                <p className="signup-text">
+                  Already have an account?{" "}
+                  <a href="/" className="signup-link">
+                    Login
+                  </a>
+                </p>
               </div>
             </Card.Body>
           </Card>

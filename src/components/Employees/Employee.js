@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { Pagination, Card, Button } from "react-bootstrap";
-import { toast } from "react-toastify";
+import FormComponent from "../CreateEmployee/Create";
 import { APIURL } from "../../utils/api";
 import Img from "../../assets/images/emp2.svg";
 import Image from "../../assets/images/logo.png";
@@ -31,30 +31,34 @@ const Employee = () => {
 
   const [editFormData, setEditFormData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const [isCreating, setCreate] = useState(false);
+
+  // Fetch employee data
+  const fetchData = useCallback(
+    async (page) => {
+      try {
+        const response = await axios.get(`${APIURL}/getEmployeeData`, {
+          params: { page: page, pageSize: 5, search: search },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        localStorage.setItem("value", response.data.totalPages);
+        setFormDataList({
+          data: response.data.data,
+          active: page,
+          totalPages: response.data.totalPages,
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+    [search, token]
+  ); // Include dependencies that affect fetchData
 
   useEffect(() => {
     fetchData(1);
-  }, [search]);
-
-  //fetch employee data
-  const fetchData = async (page) => {
-    try {
-      const response = await axios.get(`${APIURL}/getEmployeeData`, {
-        params: { page: page, pageSize: 5, search: search },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      localStorage.setItem("value", response.data.totalPages);
-      setFormDataList({
-        data: response.data.data,
-        active: page,
-        totalPages: response.data.totalPages,
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  }, [search, fetchData]);
 
   //handle the pagination
   const handlePageChange = (pageNumber) => {
@@ -66,6 +70,10 @@ const Employee = () => {
   const handleEditClick = (formData) => {
     setEditFormData({ ...formData });
     setIsEditing(true);
+  };
+
+  const handleCreate = () => {
+    setCreate(true);
   };
 
   // handle the delete
@@ -204,15 +212,13 @@ const Employee = () => {
               >
                 Count
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {formDataList.data && formDataList.data.length}
+                  {formDataList?.data?.length || 0}
                   <span className="visually-hidden">unread messages</span>
                 </span>
               </button>
               <button
                 className="btn create_btn bg-white me-2"
-                onClick={() => {
-                  navigate(`/create`);
-                }}
+                onClick={handleCreate}
               >
                 <i className="fa-solid fa-plus me-1"></i> Create
               </button>
@@ -233,7 +239,7 @@ const Employee = () => {
                       <th>Course</th>
                       <th>Join Date</th>
                       <th></th>
-                      <th>..</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody className="logo">
@@ -318,12 +324,14 @@ const Employee = () => {
                         <i class="fas fa-times close" onClick={handleClose}></i>
                         <h2 className="fs-4 mt-1 mb-1">Update Information</h2>
                       </div>
-                      <div className="card-body table_body m-3">
+                      <div className="card-body">
                         {error && <p style={{ color: "red" }}>{error}</p>}
                         <div>
                           <form onSubmit={handleFormSubmit}>
                             <div className="form-group mb-2">
-                              <label htmlFor="f_Image">Profile</label>
+                              <label htmlFor="f_Image" className="font_card">
+                                Profile
+                              </label>
                               <input
                                 type="file"
                                 className="form-control"
@@ -333,7 +341,9 @@ const Employee = () => {
                               />
                             </div>
                             <div className="form-group mb-2">
-                              <label htmlFor="f_Name">Name</label>
+                              <label htmlFor="f_Name" className="font_card">
+                                Name
+                              </label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -344,7 +354,9 @@ const Employee = () => {
                               />
                             </div>
                             <div className="form-group mb-2">
-                              <label htmlFor="f_Email">Email</label>
+                              <label htmlFor="f_Email" className="font_card">
+                                Email
+                              </label>
                               <input
                                 type="email"
                                 className="form-control"
@@ -355,7 +367,9 @@ const Employee = () => {
                               />
                             </div>
                             <div className="form-group mb-2">
-                              <label htmlFor="f_Mobile">Mobile</label>
+                              <label htmlFor="f_Mobile" className="font_card">
+                                Mobile
+                              </label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -366,7 +380,12 @@ const Employee = () => {
                               />
                             </div>
                             <div className="form-group mb-2">
-                              <label htmlFor="f_Designation">Designation</label>
+                              <label
+                                htmlFor="f_Designation"
+                                className="font_card"
+                              >
+                                Designation
+                              </label>
                               <select
                                 className="form-control"
                                 id="f_Designation"
@@ -385,7 +404,9 @@ const Employee = () => {
                               </select>
                             </div>
                             <div className="form-group mb-2">
-                              <label htmlFor="f_gender">Gender</label>
+                              <label htmlFor="f_gender" className="font_card">
+                                Gender
+                              </label>
                               <div>
                                 <div className="form-check form-check-inline">
                                   <input
@@ -442,7 +463,9 @@ const Employee = () => {
                             </div>
 
                             <div className="form-group mb-2">
-                              <label htmlFor="f_Course">Course</label>
+                              <label htmlFor="f_Course" className="font_card">
+                                Course
+                              </label>
                               <select
                                 className="form-control"
                                 id="f_Course"
@@ -465,7 +488,12 @@ const Employee = () => {
                               </select>
                             </div>
                             <div className="form-group mb-2">
-                              <label htmlFor="f_Createdate">Join Date</label>
+                              <label
+                                htmlFor="f_Createdate"
+                                className="font_card"
+                              >
+                                Join Date
+                              </label>
                               <input
                                 type="date"
                                 className="form-control"
@@ -487,6 +515,13 @@ const Employee = () => {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              )}
+              {isCreating && (
+                <div className="modal">
+                  <div className="modal-content">
+                    <FormComponent setCreate={setCreate} />
                   </div>
                 </div>
               )}

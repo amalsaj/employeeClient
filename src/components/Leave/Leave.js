@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./leave.css";
-import { FaCheck, FaTimes, FaAngleDown } from "react-icons/fa"; // Add icons for modern feel
+import { FaCheck, FaTimes, FaAngleDown } from "react-icons/fa";
 
 const AttendanceLeavePage = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const [leaveRequests, setLeaveRequests] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("attendance"); // Default to 'attendance'
+  const [selectedOption, setSelectedOption] = useState("attendance");
 
   useEffect(() => {
     setAttendanceData([
@@ -42,27 +42,26 @@ const AttendanceLeavePage = () => {
 
   return (
     <div className="attendance-leave-container">
-      <h1>Attendance & Leave Management</h1>
-
-      {/* Dropdown to switch between Attendance and Leave */}
-      <div className="dropdown-container">
-        <label htmlFor="attendance-leave-dropdown">Select View: </label>
-        <div className="custom-select">
-          <select
-            id="attendance-leave-dropdown"
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-          >
-            <option value="attendance">Attendance</option>
-            <option value="leave">Leave</option>
-          </select>
-          <FaAngleDown className="dropdown-icon" />
+      <header className="header">
+        <h1>Attendance & Leave Management</h1>
+        <div className="dropdown-container">
+          <label htmlFor="attendance-leave-dropdown">Select View:</label>
+          <div className="custom-select">
+            <select
+              id="attendance-leave-dropdown"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+            >
+              <option value="attendance">Attendance</option>
+              <option value="leave">Leave</option>
+            </select>
+            <FaAngleDown className="dropdown-icon" />
+          </div>
         </div>
-      </div>
+      </header>
 
-      <div className="flex-row-container">
-        {/* Conditionally render based on the selected option */}
-        {selectedOption === "attendance" && (
+      <div className="content-container">
+        {selectedOption === "attendance" ? (
           <section className="attendance-section">
             <h2>Attendance Records</h2>
             <div className="table-wrapper">
@@ -92,9 +91,7 @@ const AttendanceLeavePage = () => {
               </table>
             </div>
           </section>
-        )}
-
-        {selectedOption === "leave" && (
+        ) : (
           <section className="leave-section">
             <h2>Leave Requests</h2>
             <div className="table-wrapper">

@@ -5,7 +5,6 @@ import { SnackbarProvider } from "notistack";
 import Signin from "./pages/SignIn/SignIn";
 import Dashboard from "./pages/Dashboard/Dashboard"; // Import the new layout
 import Leave from "./components/Leave/Leave";
-import Create from "./pages/CreateEmployee/Create";
 import Employee from "./components/Employees/Employee";
 import "./App.css";
 import EmployerProfilePage from "./components/Profile/Profile";
@@ -18,7 +17,7 @@ function App() {
           vertical: "top",
           horizontal: "right",
         }}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
       ></SnackbarProvider>
       <Router>
         <Routes>
@@ -28,7 +27,6 @@ function App() {
             <Route path="employees" element={<Employee />} />
             <Route path="profile" element={<EmployerProfilePage />} />
           </Route>
-          <Route path="/create" element={<Create />} />
           <Route path="/signup" element={<SignUpForm />} />
         </Routes>
       </Router>

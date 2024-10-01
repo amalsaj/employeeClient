@@ -17,10 +17,6 @@ const EmployerProfilePage = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
   const fetchUser = async () => {
     try {
       const response = await axios.get(`${APIURL}/getUser`, {
@@ -43,6 +39,11 @@ const EmployerProfilePage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();

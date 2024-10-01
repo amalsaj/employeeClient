@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { APIURL } from "../../utils/api";
 import Img from "../../assets/images/emp.svg";
 import Image from "react-bootstrap/Image";
 import "./create.css";
-const FormComponent = () => {
-  const navigate = useNavigate();
+import { enqueueSnackbar } from "notistack";
+const FormComponent = ({ setCreate }) => {
   const token = localStorage.getItem("token");
   const today = new Date().toISOString().split("T")[0];
   const [formData, setFormData] = useState({
@@ -48,6 +47,66 @@ const FormComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const mobileRegex = /^\d{10}$/;
+
+    // Validate Name
+    if (!nameRegex.test(formData.f_Name)) {
+      enqueueSnackbar("Name must contain only letters and spaces.", {
+        variant: "warning",
+      });
+      return;
+    }
+
+    // Validate Email
+    if (!emailRegex.test(formData.f_Email)) {
+      enqueueSnackbar("Please enter a valid email address.", {
+        variant: "warning",
+      });
+      return;
+    }
+
+    // Validate Mobile
+    if (!mobileRegex.test(formData.f_Mobile)) {
+      enqueueSnackbar("Please enter a valid 10-digit mobile number.", {
+        variant: "warning",
+      });
+      return;
+    }
+
+    // Validate Designation
+    if (!formData.f_Designation) {
+      enqueueSnackbar("Please select a designation.", { variant: "warning" });
+      return;
+    }
+
+    // Validate Designation
+    if (!formData.f_gender) {
+      enqueueSnackbar("Please select a gender.", { variant: "warning" });
+      return;
+    }
+
+    // Validate Designation
+    if (!formData.f_Image) {
+      enqueueSnackbar("Please select a Profile Photo.", { variant: "warning" });
+      return;
+    }
+
+    // Validate Course
+    if (!formData.f_Course) {
+      enqueueSnackbar("Please select a course.", { variant: "warning" });
+      return;
+    }
+
+    // Validate Join Date
+    if (!formData.f_Createdate) {
+      enqueueSnackbar("Please select a join date.", { variant: "warning" });
+      return;
+    }
+    setError("");
+
     try {
       await axios.post(
         `${APIURL}/createEmployee`,
@@ -59,21 +118,29 @@ const FormComponent = () => {
         }
       );
       setError("");
-      navigate(`/getEmployeeData/employees`);
+      setCreate(false);
+      enqueueSnackbar("Employee created successfully.", { variant: "success" });
     } catch (error) {
       // Handle error
       if (error.response && error.response.data) {
-        setError(error.response.data);
+        const errorMessage = error.response.data.error || "An error occurred";
+        enqueueSnackbar(`${errorMessage}`, { variant: "error" });
       } else {
         setError("An error occurred. Please try again.");
       }
     }
   };
   return (
-    <div className="d-flex justify-content-center mt-4 mb-4">
-      <div className="card data_card ">
+    <div>
+      <div className="card">
         <div className="card-header text-center head text-white">
           <img src={Img} alt="" width={100} className="rounded-circle" />
+          <i
+            class="fas fa-times close"
+            onClick={() => {
+              setCreate(false);
+            }}
+          ></i>
           <h2 className="fs-4 mt-1 mb-1 ">Create Employee</h2>
         </div>
 
