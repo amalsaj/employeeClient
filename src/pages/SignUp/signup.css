@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap");
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background-color: #f4f7fc;
 }
 
@@ -35,8 +35,9 @@ body {
   margin-bottom: 10px;
 }
 
-.text-gradient-left, .text-gradient-right {
-  background-image: linear-gradient(to right, #246BCE, #1E5799);
+.text-gradient-left,
+.text-gradient-right {
+  background-image: linear-gradient(to right, #246bce, #1e5799);
   -webkit-background-clip: text;
   color: transparent;
 }
@@ -99,6 +100,9 @@ body {
     margin: 5px; /* Smaller margin */
   }
 
+  .signup-container {
+    height: 110vh;
+  }
   .welcome-title {
     font-size: 1.2rem; /* Smaller title size */
     margin-bottom: 5px; /* Reduce space below */
@@ -125,4 +129,3 @@ body {
     margin-bottom: 8px; /* Space below the image */
   }
 }
-
