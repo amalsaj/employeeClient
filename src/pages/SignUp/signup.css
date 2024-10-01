@@ -1,16 +1,128 @@
-.centeredImage {
-    background-repeat: no-repeat;
-    background: linear-gradient(to right, #0070bb, #ffffff);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f7fc;
+}
+
+.signup-container {
+  background: linear-gradient(135deg, #0070bb, #ffffff);
+}
+
+.card-image {
+  max-width: 100%;
+  height: auto;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.signup-card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.logo-image {
+  max-width: 60px;
+  height: auto;
+}
+
+.welcome-title {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.text-gradient-left, .text-gradient-right {
+  background-image: linear-gradient(to right, #246BCE, #1E5799);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.input-field {
+  border: 1px solid #ced4da;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #0070bb;
+  box-shadow: 0 0 5px rgba(0, 112, 187, 0.3);
+}
+
+.signup-btn {
+  background-color: #0070bb;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.signup-btn:hover {
+  background-color: #005fa3;
+}
+
+.signup-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.signup-link {
+  color: #0070bb;
+}
+
+.signup-link:hover {
+  color: #005fa3;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 576px) {
+  .signup-card {
+    padding: 10px; /* Keep this for a compact look */
+    border-radius: 6px; /* Sharp appearance */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 5px; /* Smaller margin */
   }
-  .titleStyle {
-    font-size: x-small !important;
-    letter-spacing: 1px !important;
+
+  .welcome-title {
+    font-size: 1.2rem; /* Smaller title size */
+    margin-bottom: 5px; /* Reduce space below */
   }
-  .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+  .input-field {
+    font-size: 0.8rem; /* Smaller input font size */
+    padding: 5px; /* Reduced padding */
   }
-  .bodyCard {
-    border-radius: 6px;
+
+  .signup-btn {
+    font-size: 0.8rem; /* Small button font size */
+    padding: 6px; /* Reduce button padding */
+    width: 100%; /* Full-width button */
   }
+
+  .subtitle {
+    font-size: 0.7rem; /* Smaller subtitle font size */
+    margin-bottom: 8px; /* Space below */
+  }
+
+  .card-image {
+    max-width: 80px; /* Decrease max-width of the card image */
+    margin-bottom: 8px; /* Space below the image */
+  }
+}
+

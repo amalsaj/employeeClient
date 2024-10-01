@@ -39,112 +39,54 @@ const LoginForm = () => {
   };
 
   return (
-    <Container fluid>
-      <Row style={{ height: "100vh" }}>
-        <Col xs={12} md={4} lg={4} className="centered-image">
-          <div className="center" style={{ height: "100%" }}>
-            <Image
-              src={card}
-              alt="Card Image"
-              style={{
-                width: "100%",
-                maxWidth: "200px",
-                height: "auto",
-              }}
-              rounded
-            />
-          </div>
+    <Container fluid className="login-container">
+      <Row className="justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <Col xs={12} md={6} lg={4} className="mb-4 mb-lg-0 text-center">
+          <Image src={card} alt="Card Image" className="card-image" />
         </Col>
-
-        <Col xs={12} md={8} lg={8} className="text-center">
-          <div className="align-content-center">
-            <Card className="body_card m-5">
-              <Card.Header className="bg-white">
-                <Image
-                  src={Logo}
-                  alt="Logo"
-                  style={{
-                    width: "100%",
-                    maxWidth: "50px",
-                    height: "auto",
-                  }}
-                  roundedCircle
-                />
-
-                <h1 className="mt-1">
-                  <span
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to right, #246BCE, #1E5799, #143961, #0B274E, black)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    Hello
-                  </span>{" "}
-                  <span
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to left, black, #0B274E, #143961, #1E5799, #246BCE)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    Again!
-                  </span>
-                </h1>
-                <h1 className="text-secondary title mt-3">
-                  Please Log In to Access Your Account <br></br>and Continue
-                  Using Our Services
-                </h1>
-              </Card.Header>
-              <Card.Body>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="form-control"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="password" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      id="password"
-                      className="form-control"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="justify-content-center d-flex align-items-center mt-2">
-                    <Button type="submit" className="btn loginSign">
-                      Login
-                    </Button>
-                  </div>
-                  <div className="justify-content-center d-flex align-items-center mt-5">
-                    <h1 className="text-secondary title">
-                      Doesn't have an account yet?{" "}
-                      <a href="/signup" className=" text-decoration-none">
-                        Sign Up
-                      </a>{" "}
-                    </h1>
-                  </div>
-                </form>
-              </Card.Body>
-            </Card>
-          </div>
+        <Col xs={12} md={6} lg={5} className="text-center">
+          <Card className="login-card">
+            <Card.Header className="bg-transparent border-0 text-center">
+              <Image src={Logo} alt="Logo" className="logo-image mb-3" />
+              <h1 className="welcome-title mb-2">
+                <span className="text-gradient-left">Welcome</span> <span className="text-gradient-right">Back!</span>
+              </h1>
+              <h2 className="subtitle mb-4">Please log in to access your account</h2>
+            </Card.Header>
+            <Card.Body>
+              {error && <p className="error-message">{error}</p>}
+              <form onSubmit={handleSubmit}>
+                <div className="form-group mb-3">
+                  <label htmlFor="email" className="form-label">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="form-control input-field"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group mb-4">
+                  <label htmlFor="password" className="form-label">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    className="form-control input-field"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <Button type="submit" className="btn login-btn w-100">Login</Button>
+                <div className="mt-4">
+                  <p className="signup-text">
+                    Don’t have an account? <a href="/signup" className="text-decoration-none signup-link">Sign Up</a>
+                  </p>
+                </div>
+              </form>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>

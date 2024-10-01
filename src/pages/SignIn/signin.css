@@ -1,21 +1,115 @@
-.centered-image {
-    background-repeat: no-repeat;
-    background: linear-gradient(to right, #0070bb, #ffffff);
-  }
-  .body_card {
-    border-radius: 6px;
-  }
-  .title {
-    font-size: x-small !important;
-    letter-spacing: 2px !important;
-  }
-  .loginSign {
-    width: 20vw !important;
-  }  
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
-  @media (max-width: 576px) {
-    .xs-img {
-      max-width: 100px;
-      max-height: 100px;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f7fc;
+}
+
+.login-container {
+  background: linear-gradient(135deg, #0070bb, #ffffff);
+}
+
+.card-image {
+  max-width: 100%;
+  height: auto;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.login-card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.logo-image {
+  max-width: 60px;
+  height: auto;
+}
+
+.welcome-title {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.text-gradient-left, .text-gradient-right {
+  background-image: linear-gradient(to right, #246BCE, #1E5799);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.input-field {
+  border: 1px solid #ced4da;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #0070bb;
+  box-shadow: 0 0 5px rgba(0, 112, 187, 0.3);
+}
+
+.login-btn {
+  background-color: #0070bb;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.login-btn:hover {
+  background-color: #005fa3;
+}
+
+.signup-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.signup-link {
+  color: #0070bb;
+}
+
+.signup-link:hover {
+  color: #005fa3;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 576px) {
+  .card-image {
+    max-width: 180px;
   }
+
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+
+  .input-field {
+    font-size: 0.9rem;
+  }
+
+  .login-btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}

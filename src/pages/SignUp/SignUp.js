@@ -18,7 +18,6 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(`${APIURL}/signup`, {
         username,
@@ -26,11 +25,8 @@ const SignUpForm = () => {
         email,
         mobileNumber: mobile,
       });
-      console.log(response.data);
       setError("");
-      enqueueSnackbar("Account Created Successfully 🎉", {
-        variant: "success",
-      });
+      enqueueSnackbar("Account Created Successfully 🎉", { variant: "success" });
       navigate(`/`);
     } catch (error) {
       if (error.response && error.response.data) {
@@ -39,144 +35,77 @@ const SignUpForm = () => {
         enqueueSnackbar(`${errorMessage}`, { variant: "error" });
       } else {
         setError("An error occurred. Please try again.");
-        console.log(`${err}`);
       }
     }
   };
 
   return (
-    <Container fluid>
-      <Row style={{ height: "100vh" }}>
-        <Col className="centeredImage" xs={12} md={4} lg={4}>
-          <div className="m-4 mt-5 text-white">
-            <h1 className="fw-bold">
-              Join Us and <br></br> Unlock Endless <br></br>Possibilities!
-            </h1>
-            <h1 className="titleStyle">
-              Welcome! We're excited to have you on board.<br></br>Let's embark
-              on this amazing journey together!
-            </h1>
-          </div>
-
-          <div className="center">
-            <Image
-              className="mt-5 img-fluid xs-img"
-              src={card}
-              alt="Card Image"
-              style={{
-                width: "100%",
-                maxWidth: "200px",
-                height: "auto",
-              }}
-              rounded
-            />
-          </div>
+    <Container fluid className="signup-container">
+      <Row className="align-items-center justify-content-center" style={{ height: "100vh" }}>
+        <Col xs={12} md={4} lg={4} className="text-center">
+          <Image src={card} alt="Card Image" className="card-image" />
         </Col>
-        <Col xs={12} md={8} lg={8} className="text-center">
-          <Card className=" m-5 bodyCard">
-            <Card.Header className="bg-white">
-              <Image
-                xs={1}
-                src={Logo}
-                alt="Logo"
-                style={{
-                  width: "100%",
-                  maxWidth: "50px",
-                  height: "auto",
-                }}
-                roundedCircle
-              />
-              <h1 className="mt-1">
-                <span
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, #246BCE, #1E5799, #143961, #0B274E, black)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Get
-                </span>{" "}
-                <span
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to left, black, #0B274E, #143961, #1E5799, #246BCE)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Started
-                </span>
+        <Col xs={12} md={8} lg={6} className="text-center">
+          <Card className="signup-card p-4">
+            <Card.Header className="bg-white border-0 text-center">
+              <Image src={Logo} alt="Logo" className="logo-image mb-3" />
+              <h1 className="welcome-title mb-2">
+                <span className="text-gradient-left">Create</span> <span className="text-gradient-right">Account</span>
               </h1>
+              <h2 className="subtitle mb-4">Join us today to unlock endless possibilities!</h2>
             </Card.Header>
-            <Card.Body className="bg-white">
-              <form onSubmit={handleSubmit} autocomplete="off">
-                <div className="form-group">
-                  <label className="mb-2" htmlFor="username">
-                    Name
-                  </label>
+            <Card.Body>
+              {err && <p className="error-message">{err}</p>}
+              <form onSubmit={handleSubmit}>
+                <div className="form-group mb-2">
+                  <label htmlFor="username" className="form-label">Name</label>
                   <input
                     type="text"
-                    className="form-control"
                     id="username"
+                    className="form-control input-field"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
                   />
                 </div>
-                <div className="form-group">
-                  <label className="mb-2" htmlFor="email">
-                    Email
-                  </label>
+                <div className="form-group mb-2">
+                  <label htmlFor="email" className="form-label">Email</label>
                   <input
                     type="email"
-                    className="form-control"
-                    id="username"
+                    id="email"
+                    className="form-control input-field"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
-                <div className="form-group">
-                  <label className="mb-2" htmlFor="username">
-                    Contact Number
-                  </label>
+                <div className="form-group mb-2">
+                  <label htmlFor="mobile" className="form-label">Contact Number</label>
                   <input
                     type="text"
-                    className="form-control"
-                    id="username"
+                    id="mobile"
+                    className="form-control input-field"
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     required
                   />
                 </div>
-                <div className="form-group mt-3">
-                  <label className="mb-2" htmlFor="password">
-                    Password
-                  </label>
+                <div className="form-group mb-2">
+                  <label htmlFor="password" className="form-label">Password</label>
                   <input
                     type="password"
-                    className="form-control"
                     id="password"
+                    className="form-control input-field"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
-                <div className="d-flex justify-content-center  mt-4">
-                  <Button type="submit" className="btn loginSign">
-                    Create Account
-                  </Button>
-                </div>
-                <div className="justify-content-center d-flex align-items-center mt-5">
-                  <h1 className="text-secondary titleStyle">
-                    Already had an Account?{" "}
-                    <a href="/" className=" text-decoration-none">
-                      Login
-                    </a>{" "}
-                  </h1>
-                </div>
+                <Button type="submit" className="btn signup-btn w-100">Sign Up</Button>
               </form>
+              <div className="mt-4">
+                <p className="signup-text">Already have an account? <a href="/" className="signup-link">Login</a></p>
+              </div>
             </Card.Body>
           </Card>
         </Col>
