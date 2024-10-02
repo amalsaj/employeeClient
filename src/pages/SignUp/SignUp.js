@@ -69,12 +69,7 @@ const SignUpForm = () => {
     <Container fluid className="signup-container">
       <Row className="justify-content-center align-items-center min-vh-100">
         <Col xs={12} sm={6} md={6} lg={5} className="text-center mb-4 mb-md-0">
-          <Image
-            src={card}
-            alt="Card Image"
-            className="img-fluid"
-            style={{ width: "100%", height: "auto", maxHeight: "300px" }}
-          />
+          <Image src={card} alt="Card Image" className="card-image img-fluid" />
         </Col>
         <Col xs={12} md={6} lg={6}>
           <Card className="signup-card p-4">
