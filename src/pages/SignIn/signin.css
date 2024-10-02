@@ -21,6 +21,7 @@ body {
   border-radius: 15px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   padding: 30px;
+  margin-bottom: 50px;
 }
 
 .logo-image {
@@ -94,6 +95,10 @@ body {
 @media (max-width: 576px) {
   .card-image {
     max-width: 180px;
+  }
+
+  .login-card {
+    margin-bottom: 80px;
   }
 
   .welcome-title {
