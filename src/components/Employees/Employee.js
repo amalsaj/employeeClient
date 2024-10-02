@@ -521,7 +521,10 @@ const Employee = () => {
               {isCreating && (
                 <div className="modal">
                   <div className="modal-content">
-                    <FormComponent setCreate={setCreate} />
+                    <FormComponent
+                      setCreate={setCreate}
+                      fetchData={fetchData}
+                    />
                   </div>
                 </div>
               )}
