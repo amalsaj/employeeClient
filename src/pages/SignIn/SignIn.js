@@ -40,48 +40,71 @@ const LoginForm = () => {
 
   return (
     <Container fluid className="login-container">
-      <Row className="justify-content-center align-items-center" style={{ height: "100vh" }}>
-        <Col xs={12} md={6} lg={4} className="mb-4 mb-lg-0 text-center">
-          <Image src={card} alt="Card Image" className="card-image" />
+      <Row className="justify-content-center align-items-center min-vh-100">
+        <Col xs={12} sm={6} md={6} lg={5} className="text-center mb-4 mb-md-0">
+          <Image
+            src={card}
+            alt="Card Image"
+            className="img-fluid"
+            style={{ width: "100%", height: "auto", maxHeight: "300px" }}
+          />
         </Col>
-        <Col xs={12} md={6} lg={5} className="text-center">
-          <Card className="login-card">
+        <Col xs={12} md={6} lg={6}>
+          <Card className="login-card p-4">
             <Card.Header className="bg-transparent border-0 text-center">
               <Image src={Logo} alt="Logo" className="logo-image mb-3" />
               <h1 className="welcome-title mb-2">
-                <span className="text-gradient-left">Welcome</span> <span className="text-gradient-right">Back!</span>
+                <span className="text-gradient-left">Welcome</span>
+                <span className="text-gradient-right"> Back!</span>
               </h1>
-              <h2 className="subtitle mb-4">Please log in to access your account</h2>
+              <h2 className="subtitle mb-4">
+                Please log in to access your account
+              </h2>
             </Card.Header>
             <Card.Body>
-              {error && <p className="error-message">{error}</p>}
+              {error && <p className="error-message text-danger">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
                   <input
                     type="email"
                     id="email"
                     className="form-control input-field"
                     value={email}
+                    placeholder="Enter your email"
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
                 <div className="form-group mb-4">
-                  <label htmlFor="password" className="form-label">Password</label>
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
                   <input
                     type="password"
                     id="password"
                     className="form-control input-field"
                     value={password}
+                    placeholder="Enter your password"
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
-                <Button type="submit" className="btn login-btn w-100">Login</Button>
-                <div className="mt-4">
+                <Button type="submit" className="btn login-btn w-100">
+                  Login
+                </Button>
+                <div className="mt-4 text-center">
                   <p className="signup-text">
-                    Don’t have an account? <a href="/signup" className="text-decoration-none signup-link">Sign Up</a>
+                    Don’t have an account?
+                    <a
+                      href="/signup"
+                      className="text-decoration-none signup-link"
+                    >
+                      {" "}
+                      Sign Up
+                    </a>
                   </p>
                 </div>
               </form>

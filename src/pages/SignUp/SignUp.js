@@ -3,7 +3,15 @@ import axios from "axios";
 import { APIURL } from "../../utils/api";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-import { Image, Button, Container, Row, Col, Card } from "react-bootstrap";
+import {
+  Image,
+  Button,
+  Container,
+  Row,
+  Col,
+  Form,
+  Card,
+} from "react-bootstrap";
 import card from "../../assets/images/card4.svg";
 import Logo from "../../assets/images/logo.avif";
 import "./signup.css";
@@ -19,36 +27,27 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_-]{2,15}$/;
-
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
     const mobileRegex = /^\d{10}$/;
 
-    // Check username validity
     if (!usernameRegex.test(username)) {
-      const errorMessage =
-        "Your username should start with a letter and be 3 to 16 characters long, allowing letters, numbers, underscores, and hyphens.";
-      enqueueSnackbar(errorMessage, { variant: "warning" });
+      enqueueSnackbar("Invalid username.", { variant: "warning" });
       return;
     }
 
-    // Check mobile number validity
     if (!mobileRegex.test(mobile)) {
-      const errorMessage = "Please enter a valid 10-digit mobile number.";
-      enqueueSnackbar(errorMessage, { variant: "warning" });
-      return; // Exit the function if validation fails
+      enqueueSnackbar("Invalid mobile number.", { variant: "warning" });
+      return;
     }
 
     if (!passwordRegex.test(password)) {
-      const errorMessage =
-        "Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.";
-      enqueueSnackbar(errorMessage, { variant: "warning" });
-      return; // Exit the function if validation fails
+      enqueueSnackbar("Invalid password.", { variant: "warning" });
+      return;
     }
 
     try {
-      const response = await axios.post(`${APIURL}/signup`, {
+      await axios.post(`${APIURL}/signup`, {
         username,
         password,
         email,
@@ -60,26 +59,24 @@ const SignUpForm = () => {
       });
       navigate(`/`);
     } catch (error) {
-      if (error.response && error.response.data) {
-        const errorMessage = error.response.data.error || "An error occurred";
-        setError(errorMessage);
-        enqueueSnackbar(`${errorMessage}`, { variant: "error" });
-      } else {
-        setError("An error occurred. Please try again.");
-      }
+      const errorMessage = error.response?.data?.error || "An error occurred";
+      setError(errorMessage);
+      enqueueSnackbar(errorMessage, { variant: "error" });
     }
   };
 
   return (
     <Container fluid className="signup-container">
-      <Row
-        className="align-items-center justify-content-center"
-        style={{ height: "100vh" }}
-      >
-        <Col xs={12} md={4} lg={4} className="text-center">
-          <Image src={card} alt="Card Image" className="card-image" />
+      <Row className="justify-content-center align-items-center min-vh-100">
+        <Col xs={12} sm={6} md={6} lg={5} className="text-center mb-4 mb-md-0">
+          <Image
+            src={card}
+            alt="Card Image"
+            className="img-fluid"
+            style={{ width: "100%", height: "auto", maxHeight: "300px" }}
+          />
         </Col>
-        <Col xs={12} md={8} lg={6} className="text-center">
+        <Col xs={12} md={6} lg={6}>
           <Card className="signup-card p-4">
             <Card.Header className="bg-white border-0 text-center">
               <Image src={Logo} alt="Logo" className="logo-image mb-3" />
@@ -87,70 +84,62 @@ const SignUpForm = () => {
                 <span className="text-gradient-left">Create</span>{" "}
                 <span className="text-gradient-right">Account</span>
               </h1>
-              <h2 className="subtitle mb-4">
-                Join us today to unlock endless possibilities!
-              </h2>
+              <p className="subtitle mb-4">
+                Unlock endless possibilities today!
+              </p>
             </Card.Header>
             <Card.Body>
-              {err && <p className="error-message">{err}</p>}
-              <form onSubmit={handleSubmit}>
-                <div className="form-group mb-2">
-                  <label htmlFor="username" className="form-label">
-                    Name
-                  </label>
-                  <input
+              {err && <p className="error-message text-danger">{err}</p>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
                     type="text"
-                    id="username"
-                    className="form-control input-field"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
+                    placeholder="Enter your username"
+                    className="input-field"
                   />
-                </div>
-                <div className="form-group mb-2">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
                     type="email"
-                    id="email"
-                    className="form-control input-field"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    placeholder="Enter your email"
+                    className="input-field"
                   />
-                </div>
-                <div className="form-group mb-2">
-                  <label htmlFor="mobile" className="form-label">
-                    Contact Number
-                  </label>
-                  <input
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Contact Number</Form.Label>
+                  <Form.Control
                     type="text"
-                    id="mobile"
-                    className="form-control input-field"
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     required
+                    placeholder="Enter your mobile number"
+                    className="input-field"
                   />
-                </div>
-                <div className="form-group mb-2">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <input
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
                     type="password"
-                    id="password"
-                    className="form-control input-field"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    placeholder="Enter your password"
+                    className="input-field"
                   />
-                </div>
+                </Form.Group>
                 <Button type="submit" className="btn signup-btn w-100">
                   Sign Up
                 </Button>
-              </form>
-              <div className="mt-4">
+              </Form>
+              <div className="mt-4 text-center">
                 <p className="signup-text">
                   Already have an account?{" "}
                   <a href="/" className="signup-link">
