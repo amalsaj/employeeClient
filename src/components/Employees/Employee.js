@@ -181,17 +181,6 @@ const Employee = () => {
           <div className="employee">
             <div className="col-12 fs-1">
               <div className="d-flex justify-content-between align-items-center">
-                <div className="logoMobile">
-                  <img
-                    src={Image}
-                    style={{
-                      width: "50px",
-                      height: "40px",
-                      paddingTop: "10px",
-                    }}
-                    alt="Img"
-                  />
-                </div>
                 <div className="search-wrapper">
                   <input
                     className="border-1 search fs-6"
