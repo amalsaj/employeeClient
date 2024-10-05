@@ -1,0 +1,151 @@
+/* Sidebar expanded and collapsed styles */
+.expanded {
+  width: 240px;
+  transition: width 0.3s ease-in-out !important;
+}
+
+.collapsed {
+  width: 80px;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Sidebar icon and text styling */
+.sidebar-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.sidebar-text {
+  display: inline-block;
+  font-size: 16px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.expanded .sidebar-text {
+  opacity: 1;
+}
+
+.collapsed .sidebar-text {
+  opacity: 0;
+  pointer-events: none; /* To prevent hover on hidden text */
+}
+
+/* Sidebar link styling */
+.nav-link {
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: #e9ecef;
+  border-radius: 5px;
+  color: #007bff;
+}
+
+/* Divider styling */
+hr {
+  border: 1px solid #6c757d;
+  opacity: 0.5; /* Adjust transparency */
+  margin: 15px 0;
+}
+
+/* Sidebar container */
+.sidebar {
+  background-color: #f8f9fa;
+  height: 100vh;
+  padding: 15px;
+  transition: background-color 0.3s ease-in-out !important;
+}
+
+/* Button to toggle the sidebar */
+.btn-outline-secondary {
+  width: 100%;
+}
+
+/* Mobile view */
+@media (max-width: 500px) {
+  .sidebar {
+    display: none !important;
+  }
+
+  /* Display Bottom Navbar on Mobile */
+  .navbar-mobile {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #efebeb !important;
+    width: 100%;
+    background-color: #ffffff !important;
+    border-top: 1px solid #e9ecef;
+    padding: 10px 0;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .mobile-icon {
+    cursor: pointer;;
+    font-size: 30px !important;
+    color: #000000 !important;
+    transition: color 0.3s ease;
+    margin: 0 5px; /* Adjust the value as needed for spacing */
+  }
+
+  .mobile-icon:hover {
+    color: #007bff;
+    transform: scale(1.1);
+  }
+}
+
+/* Additional styles for a more polished design */
+/* Smooth transition for sidebar toggle */
+.sidebar,
+.nav-link {
+  transition: all 0.3s ease-in-out;
+}
+
+/* User profile in the sidebar */
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user-profile img {
+  border-radius: 50%;
+}
+
+.user-profile h6 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.user-profile small {
+  color: #6c757d;
+}
+
+/* Sidebar toggle button */
+.toggle-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.toggle-btn button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.toggle-btn button:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}

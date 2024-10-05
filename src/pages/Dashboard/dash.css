@@ -1,0 +1,39 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar-style {
+  width: 250px;
+}
+
+.dashboard-content {
+  flex-grow: 1; /* Takes up the remaining space */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* When the screen is less than or equal to 768px */
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 10px;
+  }
+}
+
+/* When the screen is less than or equal to 576px */
+@media (max-width: 576px) {
+  .dashboard-content {
+    padding: 15px;
+  }
+}
+
+/* When the screen is less than or equal to 500px */
+@media (max-width: 500px) {
+  .dashboard-content {
+    width: 100%; /* Full width */
+    padding: 10px;
+  }
+  .sidebar-style {
+    width: 0px;
+  }
+}

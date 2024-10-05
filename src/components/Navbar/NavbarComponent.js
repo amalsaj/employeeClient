@@ -1,59 +1,153 @@
-import { Navbar, Nav } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
-import { enqueueSnackbar } from "notistack";
+import React, { useState } from "react";
+import { Nav, Image } from "react-bootstrap";
 import data2 from "../../assets/images/data2.png";
-import Image from "../../assets/images/logo.png";
-import "./navabr.css";
+import { enqueueSnackbar } from "notistack";
+import {
+  FaUsers, // Employees
+  FaClipboardList, // Attendance
+  FaUser, // Profile
+  FaCalendarAlt,
+  FaCog,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
-const NavbarComponent = () => {
+import { useNavigate } from "react-router-dom";
+import "./sidebar.css";
+
+const Sidebar = ({ toggleSidebar }) => {
+  const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+
   const user = localStorage.getItem("email");
-  const first_name = user?.split("@")[0] || "User";
+  const first_name = user?.split("@")[0].toLocaleUpperCase() || "User";
 
   const logoutHandle = () => {
     enqueueSnackbar("Logout Successful 🎉", { variant: "success" });
     navigate("/");
   };
 
+  const expand = () => {
+    setExpanded(!expanded);
+    toggleSidebar();
+  };
+
   return (
-    <div className="Nav text-white">
-      <Navbar className="navBar">
-        <Navbar.Brand className="logo1">
-          <img src={Image} alt="Logo" className="logo" />
-        </Navbar.Brand>
-        <Nav className="navStyle">
+    <>
+      {/* Sidebar for Desktop */}
+      <div
+        className={`d-flex flex-column bg-light text-dark vh-100 p-3 ${
+          expanded ? "expanded" : "collapsed"
+        } sidebar`}
+      >
+        {/* User Profile Section */}
+        <div className="d-flex align-items-center mb-4">
+          <Image src={data2} alt="User" width={40} />
+          {expanded && (
+            <div className="ms-3">
+              <h6 className="m-0">{first_name}</h6>
+              <small>Product Manager</small>
+            </div>
+          )}
+        </div>
+
+        {/* Divider */}
+        <hr className="my-3 mt-0" />
+
+        {/* Main Navigation */}
+        <Nav className="flex-column">
           <Nav.Link
-            as={Link}
-            to="/getEmployeeData/employees"
-            className="navLink"
+            href="/getEmployeeData/employees"
+            className="d-flex align-items-center text-dark py-2 nav-link"
           >
-            <i className="fa-solid fa-users"></i> Employees
+            <FaUsers className="sidebar-icon" />
+            {expanded && <span className="sidebar-text">Dashboard</span>}
           </Nav.Link>
-          <Nav.Link as={Link} to="/getEmployeeData/leave" className="navLink">
-            <i className="fa-solid fa-calendar-check"></i> Attendance
-          </Nav.Link>
+
           <Nav.Link
-            as={Link}
-            to="/getEmployeeData/profile"
-            className="navLink profileNav"
+            href="/getEmployeeData/leave"
+            className="d-flex align-items-center text-dark py-2 nav-link"
           >
-            <i className="fa-solid fa-user-circle"></i> Profile
+            <FaClipboardList className="sidebar-icon" />
+            {expanded && <span className="sidebar-text">Attendance</span>}
           </Nav.Link>
-          <Nav.Link className="navLink">
-            <i className="fa-solid fa-cog"></i> Settings
+
+          <Nav.Link
+            href="/getEmployeeData/profile"
+            className="d-flex align-items-center text-dark py-2 nav-link"
+          >
+            <FaUser className="sidebar-icon" />
+            {expanded && <span className="sidebar-text">Profile</span>}
           </Nav.Link>
-          <Nav.Link className="navLink userProfile"  as={Link}
-            to="/getEmployeeData/profile">
-            <img src={data2} alt="User" className="userImage" />
-            <span className="photo">{first_name}</span>
-          </Nav.Link>
-          <Nav.Link onClick={logoutHandle} className="navLink logoutLink">
-            <i className="fa-solid fa-sign-out-alt"></i>
+
+          <Nav.Link
+            href="#schedules"
+            className="d-flex align-items-center text-dark py-2 nav-link"
+          >
+            <FaCalendarAlt className="sidebar-icon" />
+            {expanded && <span className="sidebar-text">Schedules</span>}
           </Nav.Link>
         </Nav>
-      </Navbar>
+
+        <hr className="my-3" />
+
+        {/* Settings and Logout */}
+        <Nav className="mt-auto">
+          <Nav.Link
+            href="#settings"
+            className="d-flex align-items-center text-dark py-2 nav-link"
+          >
+            <FaCog className="sidebar-icon" />
+            {expanded && <span className="sidebar-text">Settings</span>}
+          </Nav.Link>
+
+          <Nav.Link
+            className="d-flex align-items-center text-danger py-2 nav-link"
+            onClick={logoutHandle}
+          >
+            <FaSignOutAlt className="sidebar-icon" />
+            {expanded && <span className="sidebar-text">Logout Account</span>}
+          </Nav.Link>
+        </Nav>
+
+        {/* Toggle Sidebar */}
+        <div className="d-flex justify-content-center mt-3">
+          <button
+            className="btn btn-outline-secondary btn-sm"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? "<" : ">"}
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom Navbar for Mobile */}
+      <NavBarMobile logoutHandle={logoutHandle} />
+    </>
+  );
+};
+
+const NavBarMobile = ({ logoutHandle }) => {
+  return (
+    <div className="navbar-mobile">
+      <Nav className="justify-content-around">
+        <Nav.Link href="/getEmployeeData/employees">
+          <FaUsers className="mobile-icon" />
+        </Nav.Link>
+        <Nav.Link href="/getEmployeeData/leave">
+          <FaClipboardList className="mobile-icon" />
+        </Nav.Link>
+        <Nav.Link href="#schedules">
+          <FaCalendarAlt className="mobile-icon" />
+        </Nav.Link>
+        <Nav.Link href="/getEmployeeData/profile">
+          <Image src={data2} alt="User" width={40} />
+        </Nav.Link>
+        <Nav.Link onClick={logoutHandle} className="text-danger">
+          <FaSignOutAlt className="mobile-icon" />
+        </Nav.Link>
+      </Nav>
     </div>
   );
 };
 
-export default NavbarComponent;
+export default Sidebar;

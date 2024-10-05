@@ -3,6 +3,7 @@
 }
 
 .signup-card {
+  margin: 20px !important;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -23,6 +24,6 @@
 
 @media (max-width: 576px) {
   .signup-card {
-   margin-bottom: 30px;
+    margin-bottom: 30px;
   }
 }

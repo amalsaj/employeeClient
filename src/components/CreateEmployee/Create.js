@@ -5,9 +5,11 @@ import Img from "../../assets/images/emp.svg";
 import Image from "react-bootstrap/Image";
 import "./create.css";
 import { enqueueSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 const FormComponent = ({ setCreate, fetchData }) => {
   const token = localStorage.getItem("token");
   const today = new Date().toISOString().split("T")[0];
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     f_Name: "",
     f_Email: "",
@@ -119,7 +121,8 @@ const FormComponent = ({ setCreate, fetchData }) => {
       );
       setError("");
       setCreate(false);
-      fetchData(1);
+      navigate("/getEmployeeData/employees");
+      fetchData(1)
       enqueueSnackbar("Employee created successfully.", { variant: "success" });
     } catch (error) {
       // Handle error

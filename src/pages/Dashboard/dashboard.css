@@ -1,8 +1,4 @@
 
-.navStyle {
-  padding-top: 30px;
-  flex-direction: column !important;
-}
 .search-wrapper {
   position: relative;
 }
@@ -22,13 +18,7 @@
   font-size: medium;
   margin-left: 20px;
 }
-.dashbaord {
-  background-color: #f2f3f4;
-  position: fixed;
-  right: 0;
-  width: 87%;
-  height: 100%;
-}
+
 .logoutTitle {
   display: none;
 }
@@ -207,7 +197,6 @@ tbody tr {
 }
 
 @media (max-width: 700px) {
-
   .logoMobile {
     padding-top: 4cm;
     display: contents;
@@ -251,7 +240,6 @@ tbody tr {
     display: flex;
   }
 
-
   .navStyle .nav-link {
     display: flex;
     flex-direction: column;
@@ -279,15 +267,6 @@ tbody tr {
 
   .logoutIcon {
     margin-top: 4px;
-  }
-
-  .dashbaord {
-    position: fixed;
-    width: 100%;
-    height: calc(100% - 70px);
-    bottom: 0;
-    top: 0;
-    left: 0;
   }
 
   .modal-content {

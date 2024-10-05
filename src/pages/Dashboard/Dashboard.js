@@ -1,17 +1,17 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import NavbarComponent from "../../components/Navbar/NavbarComponent";
+import Sidebar from "../../components/Navbar/NavbarComponent";
+import "./dash.css";
 import "./dashboard.css";
+
 const Dashboard = () => {
   return (
-    <div>
-      <div>
-        <NavbarComponent />
+    <div className="dashboard-container">
+      <div className="sidebar-style">
+        <Sidebar />
       </div>
-      <div className="col-10 dashbaord">
-        <div>
-          <Outlet />
-        </div>
+      <div className="dashboard-content">
+        <Outlet />
       </div>
     </div>
   );
